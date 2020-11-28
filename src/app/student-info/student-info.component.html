@@ -1,0 +1,34 @@
+<div class="contentWrapper">
+  <button mat-flat-button color="accent" routerLink="/students">Back</button>
+  <div *ngIf="student$ | async as student">
+    <mat-tab-group color="accent" animationDuration="0ms">
+      <mat-tab label="Info">
+        <mat-list>
+          <mat-list-item> {{student.name}} </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item> {{student.email}} </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item> {{student.phone}} </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </mat-tab>
+      <mat-tab label="Electives">
+        <mat-list *ngFor="let elective of student.electives">
+          <mat-list-item> {{elective.name}} </mat-list-item>
+          <mat-divider></mat-divider>
+        </mat-list>
+      </mat-tab>
+      <mat-tab label="Marks">
+
+        <table class="table" >
+          <tr scope="row" *ngFor="let ms of student.studentMarkSubjects">
+            <td>{{ms.subject.name}}</td>
+            <td>{{ms.mark.mark}}</td>
+          </tr>
+        </table>
+
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+</div>

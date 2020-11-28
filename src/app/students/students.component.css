@@ -1,0 +1,33 @@
+table, mat-paginator {
+  width: 100%;
+  margin: 20px auto;
+}
+
+th{
+  background-color: #ffcdd2;
+  font-size: larger;
+  color: #212121;
+}
+
+th:nth-child(1),th:nth-child(1) {
+  width: 30%;
+}
+th:nth-child(2),th:nth-child(2) {
+  width: 25%;
+}
+th:nth-child(3),th:nth-child(3) {
+  width: 25%;
+}
+th:nth-child(4),th:nth-child(4) {
+  width: 20%;
+}
+
+.example-form {
+  min-width: 200px;
+  max-width: 250px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}

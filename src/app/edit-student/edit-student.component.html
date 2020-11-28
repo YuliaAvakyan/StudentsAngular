@@ -1,0 +1,77 @@
+<div class="container">
+  <h3 mat-dialog-title>Student {{this.data.st.name}}</h3>
+
+  <form class="mat-dialog-content" #formControl="ngForm">
+
+    <div class="form-group row">
+      <div class="form-group ml-3">
+        <mat-label>Info</mat-label>
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput class="form-control" placeholder="Name" [(ngModel)]="data.st.name" name="name" required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput class="form-control" placeholder="Email" type="email" [(ngModel)]="data.st.email"
+                   name="email"
+                   required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form">
+          <mat-form-field color="accent">
+            <input matInput class="form-control" placeholder="Phone" type="tel" [(ngModel)]="data.st.phone" name="phone"
+                   required>
+            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="form-group ml-5">
+        <mat-label>Electives</mat-label>
+        <mat-selection-list #electivesList>
+          <mat-list-option *ngFor="let el of this.electives" [selected]="checkElectives(el.name)">
+            {{el.name}}
+          </mat-list-option>
+        </mat-selection-list>
+      </div>
+
+      <div class="form-group ml-5">
+        <mat-label>Marks</mat-label>
+        <table>
+          <tr *ngFor="let s of this.subjects">
+            <td>
+              {{s.name}}
+            </td>
+            <td>
+              <mat-form-field appearance="fill" class="ml-3">
+                <mat-label>Mark</mat-label>
+                <mat-select>
+                  <mat-option *ngFor="let m of marks" [value]="m.mark">
+                    {{m.mark}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button color="accent" [type]="submit" [disabled]="!formControl.valid" [mat-dialog-close]="1"
+              (click)="stopEdit()">Save
+      </button>
+      <button mat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+
+  </form>
+
+
+</div>
