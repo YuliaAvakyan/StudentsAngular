@@ -15,7 +15,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { EditStudentComponent } from './edit-student/edit-student.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
 
@@ -32,23 +32,24 @@ const appRoutes: Routes = [
     StudentInfoComponent,
     EditStudentComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    HttpClientModule,
-    MatTableModule,
-    MatButtonModule,
-    MatTabsModule,
-    MatPaginatorModule,
-    RouterModule.forRoot(appRoutes),
-    MatListModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatIconModule,
-    FormsModule,
-    MatDialogModule,
-    MatSelectModule
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        MatTableModule,
+        MatButtonModule,
+        MatTabsModule,
+        MatPaginatorModule,
+        RouterModule.forRoot(appRoutes),
+        MatListModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatIconModule,
+        FormsModule,
+        MatDialogModule,
+        MatSelectModule,
+        ReactiveFormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

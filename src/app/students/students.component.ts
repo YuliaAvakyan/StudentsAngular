@@ -30,8 +30,6 @@ export class StudentsComponent implements OnInit {
     });
 
 
-
-
     // console.log("students: " + this.students.entries());
   }
 
@@ -59,25 +57,26 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  edit(student: Student): void {
+  // TODO: something wrong with passing data with subscribe. Dialogref is undefined
 
-    this.studentService.getStudent(student.id.toString())  //.pipe(map(data => this.dataToTransmit = data))
+  edit(student: Student): void {
+    let dialogRef: any;
+    this.studentService.getStudent(student.id.toString())
       .subscribe((student) => {
-        this.dialog.open(EditStudentComponent, {
+        dialogRef = this.dialog.open(EditStudentComponent, {
           data: {st: student}
         });
+
       });
 
-
     // dialogRef.afterClosed().subscribe(result => {
-    //   if(result === 1){
+    //   if (result === 1) {
     //     const foundIndex = this.students.findIndex(x => x.id === student.id);
     //     this.students[foundIndex] = this.studentService.getDialogData();
     //     this.refreshTable();
     //   }
     //
     // });
-
   }
 
   private refreshTable() {
