@@ -3,6 +3,7 @@
   flex-direction: column;
   width: auto;
   height: auto;
+
 }
 
 .mat-dialog-content{
@@ -13,9 +14,6 @@
   display: flex;
   padding-top: 6px;
 }
-/*.row{*/
-/*  width: auto;*/
-/*}*/
 .mat-form-field {
   font-size: 16px;
   flex-grow: 1;

@@ -13,6 +13,7 @@ import {Observable} from 'rxjs';
 export class StudentInfoComponent implements OnInit {
 
   student$: Observable<Student>;
+  st: Student;
 
   constructor(private studentService: StudentService,
   private route: ActivatedRoute,
@@ -25,7 +26,7 @@ export class StudentInfoComponent implements OnInit {
         this.studentService.getStudent(params.get('id')))
     );
 
-    this.student$.subscribe(s => console.log(s));
+    this.student$.subscribe(s => this.st = s as Student);
   }
 
 }

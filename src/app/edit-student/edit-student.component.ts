@@ -5,6 +5,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angul
 import {Elective} from '../model/Elective';
 import {Mark} from '../model/Mark';
 import {Subject} from '../model/Subject';
+import {MyErrorStateMatcher} from '../MyErrorStateMatcher';
 
 @Component({
   selector: 'app-edit-student',
@@ -20,7 +21,7 @@ export class EditStudentComponent implements OnInit {
   selectedElective: Elective;
   selectedElectives: Elective[];
   isSelectElective: boolean = false;
-
+  matcher = new MyErrorStateMatcher();
 
   constructor(public dialogRef: MatDialogRef<EditStudentComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, public studentService: StudentService, private formBuilder: FormBuilder) {
@@ -36,7 +37,7 @@ export class EditStudentComponent implements OnInit {
     this.myForm = this.formBuilder.group({
       name: [this.data.st.name, Validators.required],
       email: [this.data.st.email, [Validators.required, Validators.email]],
-      phone: [this.data.st.phone],
+      phone: [this.data.st.phone, Validators.pattern("^((\\+[1-9]-?)|0)?[0-9]{10}$")],
       st_electives: this.formBuilder.array, //this.formBuilder.array(this.data.st.electives.map(el => new FormControl(el))),
       st_mark_subj: this.formBuilder.array(stMarkSubj)
     });

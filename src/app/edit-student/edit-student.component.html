@@ -1,90 +1,97 @@
 <div class="container">
-<h3 mat-dialog-title>Student {{this.data.st.name}}</h3>
-<mat-dialog-content class="mat-typography">
-  <form [formGroup]="myForm">
+  <h2 class="card-title" mat-dialog-title>Student {{this.data.st.name}}</h2>
+  <mat-dialog-content class="mat-typography">
+    <form [formGroup]="myForm">
 
-    <div class="form-group row">
-      <div class="form-group ml-3">
-        <mat-label>Info</mat-label>
-        <div class="form">
-          <mat-form-field class="example-full-width" color="accent">
-            <input matInput placeholder="Name" formControlName="name">
-          </mat-form-field>
+      <div class="form-group row">
+        <div class="form-group ml-3">
+          <mat-label>Info</mat-label>
+          <div class="form">
+            <mat-form-field class="example-full-width" color="accent">
+              <input type="text" matInput formControlName="name" [errorStateMatcher]="matcher">
+              <mat-error *ngIf="myForm.controls['name'].hasError('required')">
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field class="example-full-width" color="accent">
+              <input type="email" matInput formControlName="email" [errorStateMatcher]="matcher"
+                     placeholder="Ex. pat@example.com">
+              <mat-error *ngIf="myForm.controls['email'].hasError('email') && !myForm.controls['email'].hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="myForm.controls['email'].hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="form">
+            <mat-form-field class="example-full-width" color="accent">
+              <input type="tel" matInput formControlName="phone">
+              <mat-error *ngIf="myForm.controls['phone'].hasError('pattern')">
+                Please enter valid phone number
+              </mat-error>
+            </mat-form-field>
+          </div>
         </div>
-        <div class="form">
-          <mat-form-field class="example-full-width" color="accent">
-            <input matInput placeholder="Email" formControlName="email">
-            <!--      <mat-error *ngIf="name.hasError('required')">-->
-            <!--        Username is required.-->
-            <!--      </mat-error>-->
-            <!--      <div class="alert alert-danger"-->
-            <!--           *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">-->
-            <!--      </div>-->
-          </mat-form-field>
-        </div>
-        <div class="form">
-          <mat-form-field class="example-full-width" color="accent">
-            <input matInput placeholder="Phone" formControlName="phone">
-          </mat-form-field>
-        </div>
-      </div>
 
-      <div class="form-group ml-5">
-        <mat-label>Electives</mat-label>
-        <mat-selection-list #electivesList formControlName="st_electives"
-                            [(ngModel)]="selectedElectives" (selectionChange)="onNgModelChange($event)">
-          <mat-list-option *ngFor="let el of this.electives" [value]="el" [selected]="checkElectives(el.name)">
-            {{el.name}}
-          </mat-list-option>
-        </mat-selection-list>
-<!--        <p>-->
-<!--          Options selected: {{electivesList.selectedOptions.selected.length}}-->
-<!--        </p>-->
-      </div>
+        <div class="form-group ml-5">
+          <mat-label>Electives</mat-label>
+          <mat-selection-list #electivesList formControlName="st_electives"
+                              [(ngModel)]="selectedElectives" (selectionChange)="onNgModelChange($event)">
+            <mat-list-option *ngFor="let el of this.electives" [value]="el" [selected]="checkElectives(el.name)">
+              {{el.name}}
+            </mat-list-option>
+          </mat-selection-list>
+          <!--        <p>-->
+          <!--          Options selected: {{electivesList.selectedOptions.selected.length}}-->
+          <!--        </p>-->
+        </div>
 
-      <div class="form-group ml-5 mr-md-3">
-        <mat-label>Marks</mat-label>
-        <div class="form-group row mt-3" formArrayName="st_mark_subj"
-             *ngFor="let field of myForm.get('st_mark_subj')['controls'];
+        <div class="form-group ml-5 mr-md-3">
+          <mat-label>Marks</mat-label>
+          <div class="form-group row mt-3" formArrayName="st_mark_subj"
+               *ngFor="let field of myForm.get('st_mark_subj')['controls'];
                      let ind = index;">
-          <ng-container [formGroupName]="ind">
-            <div class="form-group">
-              <select class="form-control" formControlName="subject" [compareWith]="compareFn">
-                <option *ngFor="let s of subjects" [ngValue]="s">
-                  {{s.name}}
-                </option>
-              </select>
-            </div>
-            <div class="form-group ml-1">
-              <select class="form-control" formControlName="mark" [compareWith]="compareFn">
-                <!--                  matNativeControl-->
-                <option *ngFor="let m of marks" [ngValue]="m">
-                  {{m.mark}}
-                </option>
-              </select>
-            </div>
-            <div>
-              <button mat-button color="warn" (click)="removeRow(ind)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </ng-container>
+            <ng-container [formGroupName]="ind">
+              <div class="form-group">
+                <select class="form-control" formControlName="subject" [compareWith]="compareFn">
+                  <option *ngFor="let s of subjects" [ngValue]="s">
+                    {{s.name}}
+                  </option>
+                </select>
+              </div>
+              <div class="form-group ml-1">
+                <select class="form-control" formControlName="mark" [compareWith]="compareFn">
+                  <!--                  matNativeControl-->
+                  <option *ngFor="let m of marks" [ngValue]="m">
+                    {{m.mark}}
+                  </option>
+                </select>
+              </div>
+              <div>
+                <button mat-button color="warn" (click)="removeRow(ind)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+          <div class="mt-3">
+            <button mat-stroked-button color="primary" (click)="addRow()">Add</button>
+          </div>
+          <!--        <pre>-->
+          <!--          {{myForm.value | json}}-->
+          <!--        </pre>-->
         </div>
-        <div class="mt-3">
-          <button mat-stroked-button color="primary" (click)="addRow()">Add</button>
-        </div>
-<!--        <pre>-->
-<!--          {{myForm.value | json}}-->
-<!--        </pre>-->
       </div>
-    </div>
 
-    <div mat-dialog-actions>
-      <button mat-flat-button color="accent" type="submit" [mat-dialog-close]="1" (click)="stopEdit()"
-              [disabled]="!myForm.valid">Save
-      </button>
-      <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
-    </div>
-  </form>
-</mat-dialog-content>
+      <div mat-dialog-actions>
+        <button mat-flat-button color="accent" type="submit" [mat-dialog-close]="1" (click)="stopEdit()"
+                [disabled]="!myForm.valid">Save
+        </button>
+        <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+      </div>
+    </form>
+  </mat-dialog-content>
 </div>
