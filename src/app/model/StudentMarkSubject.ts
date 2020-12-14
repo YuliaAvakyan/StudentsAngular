@@ -3,13 +3,13 @@ import {Mark} from './Mark';
 
 
 export class StudentMarkSubject {
-  id: bigint;
+  // id: bigint;
   subject: Subject;
   mark: Mark;
 
 
-  constructor(id: bigint, subject: Subject, mark: Mark) {
-    this.id = id;
+  constructor(subject: Subject, mark: Mark) {
+    // this.id = id;
     this.subject = subject;
     this.mark = mark;
   }

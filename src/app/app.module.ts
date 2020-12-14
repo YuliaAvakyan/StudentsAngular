@@ -18,6 +18,8 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatSelectModule} from '@angular/material/select';
+import { AddStudentComponent } from './add-student/add-student.component';
+
 
 const appRoutes: Routes = [
   {path: '', component: AppComponent},
@@ -30,7 +32,8 @@ const appRoutes: Routes = [
     AppComponent,
     StudentsComponent,
     StudentInfoComponent,
-    EditStudentComponent
+    EditStudentComponent,
+    AddStudentComponent
   ],
     imports: [
         BrowserModule,

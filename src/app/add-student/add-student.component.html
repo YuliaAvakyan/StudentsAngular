@@ -1,0 +1,18 @@
+<form class="example-form">
+  <mat-form-field class="example-full-width" color="accent">
+    <mat-label>Name</mat-label>
+    <input matInput #stName>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" color="accent">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput placeholder="Ex. pat@example.com" #stEmail>
+  </mat-form-field>
+  <mat-form-field class="example-full-width" color="accent">
+    <mat-label>Phone</mat-label>
+    <!--        <span matPrefix>+7 &nbsp;</span>-->
+    <input type="tel" matInput placeholder="+7 555-55-55" #stPhone>
+  </mat-form-field>
+</form>
+<button mat-flat-button color="accent" (click)="add(stName.value, stEmail.value, stPhone.value);
+      stName.value = ''; stEmail.value = ''; stPhone.value = ''">Add student
+</button>

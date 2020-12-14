@@ -24,6 +24,8 @@ export class StudentInfoComponent implements OnInit {
       switchMap((params: ParamMap) =>
         this.studentService.getStudent(params.get('id')))
     );
+
+    this.student$.subscribe(s => console.log(s));
   }
 
 }

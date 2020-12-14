@@ -1,22 +1,10 @@
 <div class="contentWrapper">
-  <form class="example-form">
-    <mat-form-field class="example-full-width" color="accent">
-      <mat-label>Name</mat-label>
-      <input matInput #stName>
-    </mat-form-field>
-    <mat-form-field class="example-full-width" color="accent">
-      <mat-label>Email</mat-label>
-      <input type="email" matInput placeholder="Ex. pat@example.com" #stEmail>
-    </mat-form-field>
-    <mat-form-field class="example-full-width" color="accent">
-      <mat-label>Phone</mat-label>
-      <!--        <span matPrefix>+7 &nbsp;</span>-->
-      <input type="tel" matInput placeholder="+7 555-55-55" #stPhone>
-    </mat-form-field>
-  </form>
-  <button mat-flat-button color="accent" (click)="add(stName.value, stEmail.value, stPhone.value);
-      stName.value = ''; stEmail.value = ''; stPhone.value = ''">Add student
-  </button>
+
+  <app-add-student (onAdded)="add($event)"></app-add-student>
+
+  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+    <mat-spinner></mat-spinner>
+  </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
@@ -58,8 +46,9 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 
-  <mat-paginator color="accent" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-
+  <mat-paginator color="accent" [pageSizeOptions]="[3, 5, 10]" [pageSize]="3" showFirstLastButtons></mat-paginator>
+<!--  <mat-paginator [length]="course?.lessonsCount" [pageSize]="3"-->
+<!--                 [pageSizeOptions]="[3, 5, 10]"></mat-paginator>-->
 
 </div>
 

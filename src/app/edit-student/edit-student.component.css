@@ -5,17 +5,23 @@
   height: auto;
 }
 
-.container {
-  width: 100%;
+.mat-dialog-content{
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-
 .form {
   display: flex;
   padding-top: 6px;
 }
-
+/*.row{*/
+/*  width: auto;*/
+/*}*/
 .mat-form-field {
   font-size: 16px;
   flex-grow: 1;
+}
+
+select {
+  width: auto;
 }
 

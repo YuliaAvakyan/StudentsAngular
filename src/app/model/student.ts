@@ -7,7 +7,7 @@ export class Student {
   email: string;
   phone: string;
   electives: Elective[];
-  studentMarkSubjects: StudentMarkSubject[];
+  studentMarkSubjects: StudentMarkSubject[]
 
 
   constructor(name: string, email: string, phone: string, electives: Elective[], studentMarkSubjects: StudentMarkSubject[]) {

@@ -1,5 +1,6 @@
 <div class="contentWrapper">
   <button mat-flat-button color="accent" routerLink="/students">Back</button>
+
   <div *ngIf="student$ | async as student">
     <mat-tab-group color="accent" animationDuration="0ms">
       <mat-tab label="Info">

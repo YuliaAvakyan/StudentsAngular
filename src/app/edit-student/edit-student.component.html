@@ -1,173 +1,90 @@
-<!--<div class="container">-->
-<!--  <h3 mat-dialog-title>Student {{this.data.st.name}}</h3>-->
-
-<!--  &lt;!&ndash;  <form class="mat-dialog-content" #formControl="ngForm">&ndash;&gt;-->
-<!--  &lt;!&ndash;    <div>&ndash;&gt;-->
-<!--  &lt;!&ndash;    <mat-selection-list #list [(ngModel)]="selectedOptions" (ngModelChange)="onNgModelChange($event)">&ndash;&gt;-->
-<!--  &lt;!&ndash;      <mat-list-option *ngFor="let shoe of typesOfShoes" [value]="shoe">&ndash;&gt;-->
-<!--  &lt;!&ndash;        {{shoe}}&ndash;&gt;-->
-<!--  &lt;!&ndash;      </mat-list-option>&ndash;&gt;-->
-<!--  &lt;!&ndash;    </mat-selection-list>&ndash;&gt;-->
-
-
-<!--  &lt;!&ndash;      {{this.selectedOption}}&ndash;&gt;-->
-<!--  &lt;!&ndash;    </div>&ndash;&gt;-->
-<!--  <div class="mat-dialog-content">-->
-<!--    <div class="form-group row">-->
-<!--      <div class="form-group ml-3">-->
-<!--        <mat-label>Info</mat-label>-->
-<!--        <div class="form">-->
-<!--          <mat-form-field color="accent">-->
-<!--            <input matInput class="form-control" placeholder="Name" [(ngModel)]="data.st.name" name="name" required>-->
-<!--            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-
-<!--        <div class="form">-->
-<!--          <mat-form-field color="accent">-->
-<!--            <input matInput class="form-control" placeholder="Email" type="email" [(ngModel)]="data.st.email"-->
-<!--                   name="email"-->
-<!--                   required>-->
-<!--            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-
-<!--        <div class="form">-->
-<!--          <mat-form-field color="accent">-->
-<!--            <input matInput class="form-control" placeholder="Phone" type="tel" [(ngModel)]="data.st.phone" name="phone"-->
-<!--                   required>-->
-<!--            <mat-error *ngIf="formControl.invalid">{{getErrorMessage()}}</mat-error>-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <div class="form-group ml-5">-->
-<!--        <mat-label>Electives</mat-label>-->
-<!--        <mat-selection-list #electivesList [(ngModel)]="selectedElectives">-->
-<!--          &lt;!&ndash;(ngModelChange)="onNgModelChange($event)"&ndash;&gt;-->
-<!--          <mat-list-option *ngFor="let el of this.electives" [value]="el" [selected]="checkElectives(el.name)">-->
-<!--            {{el.name}}-->
-<!--          </mat-list-option>-->
-<!--        </mat-selection-list>-->
-<!--      </div>-->
-
-<!--      <div class="form-group ml-5">-->
-<!--        <mat-label>Marks</mat-label>-->
-<!--        <table>-->
-<!--          <tr *ngFor="let s of this.subjects">-->
-<!--            <td>-->
-<!--              {{s.name}}-->
-<!--            </td>-->
-<!--            <td>-->
-<!--              <mat-form-field appearance="legacy" class="ml-3" color="accent">-->
-<!--                <mat-label>Mark</mat-label>-->
-<!--                &lt;!&ndash;                 [(ngModel)]="data.st.studentMarkSubjects.mark"&ndash;&gt;-->
-<!--                <mat-select>-->
-<!--                  <mat-option value="none">None</mat-option>-->
-<!--                  <mat-option value="mark" *ngFor="let m of marks">-->
-<!--                    {{m.mark}}-->
-<!--                  </mat-option>-->
-<!--                </mat-select>-->
-<!--              </mat-form-field>-->
-<!--            </td>-->
-<!--          </tr>-->
-<!--        </table>-->
-
-<!--        &lt;!&ndash;            <button mat-button color="accent" (click)="addNewMark()">Add</button>&ndash;&gt;-->
-<!--      </div>-->
-<!--    </div>-->
-
-<!--    <div mat-dialog-actions>-->
-<!--      <button mat-flat-button color="accent" [type]="submit" [mat-dialog-close]="1"-->
-<!--              (click)="stopEdit()">Save-->
-<!--      </button>-->
-<!--      &lt;!&ndash;      [disabled]="!formControl.valid"&ndash;&gt;-->
-<!--      <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>-->
-<!--    </div>-->
-
-<!--    &lt;!&ndash;  </form>&ndash;&gt;-->
-<!--  </div>-->
-
-<!--</div>-->
-
 <div class="container">
-  <h3 mat-dialog-title>Student {{this.data.st.name}}</h3>
-  <div class="mat-dialog-content">
-    <form [formGroup]="myForm">
+<h3 mat-dialog-title>Student {{this.data.st.name}}</h3>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="myForm">
 
-      <div class="form-group row">
-        <div class="form-group ml-3">
-          <mat-label>Info</mat-label>
-          <div class="form">
-            <mat-form-field class="example-full-width" color="accent">
-              <input matInput placeholder="Name" formControlName="name">
-            </mat-form-field>
-          </div>
-          <div class="form">
-            <mat-form-field class="example-full-width" color="accent">
-              <input matInput placeholder="Email" formControlName="email">
-              <!--      <mat-error *ngIf="name.hasError('required')">-->
-              <!--        Username is required.-->
-              <!--      </mat-error>-->
-              <!--      <div class="alert alert-danger"-->
-              <!--           *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">-->
-              <!--      </div>-->
-            </mat-form-field>
-          </div>
-          <div class="form">
-            <mat-form-field class="example-full-width" color="accent">
-              <input matInput placeholder="Phone" formControlName="phone">
-            </mat-form-field>
-          </div>
+    <div class="form-group row">
+      <div class="form-group ml-3">
+        <mat-label>Info</mat-label>
+        <div class="form">
+          <mat-form-field class="example-full-width" color="accent">
+            <input matInput placeholder="Name" formControlName="name">
+          </mat-form-field>
         </div>
-
-        <div class="form-group ml-5">
-          <mat-label>Electives</mat-label>
-          <mat-selection-list #electivesList formControlName="st_electives">
-            <!--(ngModelChange)="onNgModelChange($event)"-->
-            <mat-list-option *ngFor="let el of this.electives" [value]="el" [selected]="checkElectives(el.name)">
-              {{el.name}}
-            </mat-list-option>
-          </mat-selection-list>
+        <div class="form">
+          <mat-form-field class="example-full-width" color="accent">
+            <input matInput placeholder="Email" formControlName="email">
+            <!--      <mat-error *ngIf="name.hasError('required')">-->
+            <!--        Username is required.-->
+            <!--      </mat-error>-->
+            <!--      <div class="alert alert-danger"-->
+            <!--           *ngIf="myForm.controls['email'].invalid && myForm.controls['email'].touched">-->
+            <!--      </div>-->
+          </mat-form-field>
         </div>
+        <div class="form">
+          <mat-form-field class="example-full-width" color="accent">
+            <input matInput placeholder="Phone" formControlName="phone">
+          </mat-form-field>
+        </div>
+      </div>
 
-        <br/>
-        <mat-form-field>
-          <mat-label>Select a elevtive</mat-label>
-          <mat-select formControlName="st_electives">
-            <mat-option>None</mat-option>
-            <mat-option *ngFor="let prf of electives" [value]="prf">
-              {{ prf.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br/>
-        <br/>
-        <mat-form-field>
-          <mat-label>Select subject</mat-label>
-          <select matNativeControl multiple formControlName="st_subj">
-            <option *ngFor="let s of subjects" [value]="s">
-              {{s.name}}
-            </option>
-          </select>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Select mark</mat-label>
-          <select matNativeControl multiple formControlName="st_marks">
-            <option *ngFor="let m of marks" [value]="m">
-              {{m.mark}}
-            </option>
-          </select>
-        </mat-form-field>
+      <div class="form-group ml-5">
+        <mat-label>Electives</mat-label>
+        <mat-selection-list #electivesList formControlName="st_electives"
+                            [(ngModel)]="selectedElectives" (selectionChange)="onNgModelChange($event)">
+          <mat-list-option *ngFor="let el of this.electives" [value]="el" [selected]="checkElectives(el.name)">
+            {{el.name}}
+          </mat-list-option>
+        </mat-selection-list>
+<!--        <p>-->
+<!--          Options selected: {{electivesList.selectedOptions.selected.length}}-->
+<!--        </p>-->
       </div>
-      <div mat-dialog-actions>
-        <button mat-flat-button color="accent" [mat-dialog-close]="1" (click)="stopEdit()"
-                [disabled]="!myForm.valid">Save
-        </button>
-        <!--      [disabled]="!formControl.valid"-->
-        <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+
+      <div class="form-group ml-5 mr-md-3">
+        <mat-label>Marks</mat-label>
+        <div class="form-group row mt-3" formArrayName="st_mark_subj"
+             *ngFor="let field of myForm.get('st_mark_subj')['controls'];
+                     let ind = index;">
+          <ng-container [formGroupName]="ind">
+            <div class="form-group">
+              <select class="form-control" formControlName="subject" [compareWith]="compareFn">
+                <option *ngFor="let s of subjects" [ngValue]="s">
+                  {{s.name}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group ml-1">
+              <select class="form-control" formControlName="mark" [compareWith]="compareFn">
+                <!--                  matNativeControl-->
+                <option *ngFor="let m of marks" [ngValue]="m">
+                  {{m.mark}}
+                </option>
+              </select>
+            </div>
+            <div>
+              <button mat-button color="warn" (click)="removeRow(ind)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+        <div class="mt-3">
+          <button mat-stroked-button color="primary" (click)="addRow()">Add</button>
+        </div>
+<!--        <pre>-->
+<!--          {{myForm.value | json}}-->
+<!--        </pre>-->
       </div>
-    </form>
-  </div>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-flat-button color="accent" type="submit" [mat-dialog-close]="1" (click)="stopEdit()"
+              [disabled]="!myForm.valid">Save
+      </button>
+      <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+    </div>
+  </form>
+</mat-dialog-content>
 </div>
-<!--</div>-->
