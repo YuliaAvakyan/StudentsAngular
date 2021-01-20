@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {Student} from './model/student';
-import {catchError, map, tap} from 'rxjs/operators';
+import {catchError, delay, map, tap} from 'rxjs/operators';
 import {Elective} from './model/Elective';
 import {Mark} from './model/Mark';
 import {Subject} from './model/Subject';
@@ -39,14 +39,14 @@ export class StudentService {
   /** GET paged students from the server */
   getPagedStudents(filter = '', sortOrder = 'asc',
                    pageNumber = 0, pageSize = 3) : Observable<Student[]>{
-    return this.http.get<Student[]>(environment.apiUrl + "/paged", {
+    return (this.http.get<Student[]>(environment.apiUrl + "/paged", {
       params: new HttpParams()
         .set('filter', filter)
         .set('sort', sortOrder)
         .set('page', pageNumber.toString())
         .set('size', pageSize.toString())
-    });
-      // .pipe( map(res => res["content"])
+    }));
+      //
       // );
 
   }

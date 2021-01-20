@@ -2,13 +2,13 @@ import {CollectionViewer, DataSource} from '@angular/cdk/collections';
 import {Student} from './model/student';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {StudentService} from './student.service';
-import {catchError, finalize, switchMap} from 'rxjs/operators';
+import {catchError, finalize} from 'rxjs/operators';
 import {EditStudentComponent} from './edit-student/edit-student.component';
 import {MatDialog} from '@angular/material/dialog';
-import {ParamMap} from '@angular/router';
+import {WebSocketAPI} from './ws-api/WebSocketAPI';
+import {patchTsGetExpandoInitializer} from '@angular/compiler-cli/ngcc/src/packages/patch_ts_expando_initializer';
 
 export class StudentsDataSource implements DataSource<Student> {
-
 
   private studentsSubject = new BehaviorSubject<Student[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -17,7 +17,14 @@ export class StudentsDataSource implements DataSource<Student> {
 
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private studentService: StudentService) {}
+  webSocketAPI: WebSocketAPI;
+  private createdStudent: any;
+  private deletedStudentId: any;
+
+  constructor(private studentService: StudentService) {
+    this.webSocketAPI = new WebSocketAPI();
+    this.webSocketAPI.dataSource = this;
+  }
 
   connect(collectionViewer: CollectionViewer): Observable<Student[]> {
     return this.studentsSubject.asObservable();
@@ -27,7 +34,9 @@ export class StudentsDataSource implements DataSource<Student> {
     this.studentsSubject.complete();
     this.loadingSubject.complete();
     this.countSubject.complete();
+    this.webSocketAPI._disconnect();
   }
+
 
   loadStudents(filter = '', sortDirection = 'asc', pageIndex = 0, pageSize = 5) {
 
@@ -36,35 +45,26 @@ export class StudentsDataSource implements DataSource<Student> {
     this.studentService.getPagedStudents(filter, sortDirection,
       pageIndex, pageSize).pipe(
       catchError(() => of([])),
-      finalize(() => this.loadingSubject.next(false))
+      finalize(() => this.loadingSubject.next(false)),
     )
-      .subscribe(students =>
-      {
-        this.studentsSubject.next(students["content"]);
-        this.countSubject.next(students["totalElements"]);
+      .subscribe(students => {
+        this.studentsSubject.next(students['content']);
+        this.countSubject.next(students['totalElements']);
       });
   }
 
-
   add(student: Student) {
-    console.log("event " + student.name);
+    let id = student.id;
     let name = student.name;
     let email = student.email;
     let phone = student.phone;
-    this.studentService.createStudent({name, email, phone} as Student)
-      .subscribe(student => {
-        const students: Student[] = [...this.studentsSubject.value, student];
-        this.studentsSubject.next(students);
-        return student;
-      });
+
+    this.studentService.createStudent({name, email, phone} as Student).subscribe()
   }
 
   delete(student: Student): void {
-    this.studentService.deleteStudent(student.id).subscribe(() => {
-      const students: Student[] = this.studentsSubject.value.filter(
-        st => st.id != student.id );
-      this.studentsSubject.next(students);
-    });
+    console.log(student.id);
+    this.studentService.deleteStudent(student.id).subscribe()
   }
 
   //Не знаю куда деть диалог
@@ -73,12 +73,12 @@ export class StudentsDataSource implements DataSource<Student> {
     this.studentService.getStudent(student.id.toString())
       .subscribe((student) => {
         dialogRef = dialog.open(EditStudentComponent,
-          {data: {st: student}
+          {
+            data: {st: student}
           });
 
-        //not sure
         dialogRef.afterClosed().subscribe(result => {
-          if (result.event === "update") {
+          if (result.event === 'update') {
             const students: Student[] = [...this.studentsSubject.value];
             const foundIndex = students.findIndex(st => st.id === result.student.id);
             students[foundIndex] = result.student;
@@ -89,4 +89,30 @@ export class StudentsDataSource implements DataSource<Student> {
 
       });
   }
+
+  handleCreationMessage(message) {
+    console.log('HANDLE MES ' + message);
+    this.createdStudent = JSON.parse(message);
+
+    let name = this.createdStudent.name;
+    let email = this.createdStudent.email;
+    let phone = this.createdStudent.phone;
+    let student = new Student(name, email, phone, [], []);
+    student.id = this.createdStudent.id;
+    const students: Student[] = [...this.studentsSubject.value, student];
+    this.studentsSubject.next(students);
+    // finalize(() => this.studentsSubject.next(students));
+    return student;
+  }
+
+  handleDeleteMessage(message) {
+    console.log('HANDLE MES ' + message);
+    this.deletedStudentId = JSON.parse(message);
+
+    const students: Student[] = this.studentsSubject.value.filter(
+      st => st.id != this.deletedStudentId );
+    this.studentsSubject.next(students);
+
+  }
+
 }
