@@ -42,7 +42,7 @@ export class AddStudentComponent implements OnInit {
     email = email.trim();
     phone = phone.trim();
     if (!name || !email || !phone) {
-      console.log('event return');
+      console.log('creation error');
       return;
     }
     console.log('event create');

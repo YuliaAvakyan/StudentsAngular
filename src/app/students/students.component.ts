@@ -5,7 +5,9 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {StudentsDataSource} from '../studentsDataSource';
-import {tap} from 'rxjs/operators';
+import {startWith, switchMap, tap} from 'rxjs/operators';
+import {interval, Observable} from 'rxjs';
+import {WebSocketAPI} from '../ws-api/WebSocketAPI';
 
 @Component({
   selector: 'app-students',
@@ -19,13 +21,21 @@ export class StudentsComponent implements OnInit {
   dataSource: StudentsDataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  students$: Observable<any>;
+  greeting: any;
+  name: string;
+
 
   constructor(private studentService: StudentService, public dialog: MatDialog) {
+
   }
 
   ngOnInit(): void {
     this.dataSource = new StudentsDataSource(this.studentService);
     this.dataSource.loadStudents('', 'asc', 0, 5);
+
+    // this.students$ = interval(5000)
+    //   .pipe(switchMap(() => this.studentService.getStudents())); //IT WORKS & [dataSource]="students$ | async"
   }
 
   add(student: Student) {
@@ -62,7 +72,5 @@ export class StudentsComponent implements OnInit {
       this.paginator.pageIndex,
       this.paginator.pageSize);
   }
-
-
 
 }
