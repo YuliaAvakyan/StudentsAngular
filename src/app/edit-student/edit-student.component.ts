@@ -24,7 +24,8 @@ export class EditStudentComponent implements OnInit {
   matcher = new MyErrorStateMatcher();
 
   constructor(public dialogRef: MatDialogRef<EditStudentComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public studentService: StudentService, private formBuilder: FormBuilder) {
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              public studentService: StudentService, private formBuilder: FormBuilder) {
     let stMarkSubj = [];
 
     for (let i = 0; i < this.data.st.studentMarkSubjects.length; i++) {
@@ -67,7 +68,6 @@ export class EditStudentComponent implements OnInit {
     console.log("CHANGEs " + this.selectedElectives);
     if (!$event.option.value.isChecked) {
       this.isSelectElective = true;
-      console.log(this.isSelectElective);
     }
 
   }
@@ -79,10 +79,6 @@ export class EditStudentComponent implements OnInit {
 
   compareFn(a, b) {
     return a && b && a.id == b.id;
-  }
-
-
-  submit() {
   }
 
   onNoClick(): void {
@@ -109,7 +105,6 @@ export class EditStudentComponent implements OnInit {
 
     this.studentService.getElectives().subscribe((data) => {
       this.electives = data;
-
     });
     this.studentService.getMarks().subscribe((data) => {
       this.marks = data;

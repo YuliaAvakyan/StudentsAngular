@@ -11,10 +11,7 @@ export class WebSocketAPI {
   topic_delete: string = "/topic/delete";
   stompClient: any;
   dataSource: StudentsDataSource;
-  // appComponent: AppComponent;
-  // constructor(appComponent: AppComponent){
-  //   this.appComponent = appComponent;
-  // }
+
   constructor() {
     let ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
@@ -48,21 +45,6 @@ export class WebSocketAPI {
       this._connect();
     }, 5000);
   }
-
-
-  // _send(message) {
-  //   console.log("calling logout api via web socket");
-  //   this.stompClient.send("/app/hello", {}, JSON.stringify(message));
-  // }
-  //
-  // addStudent(student: Student): void {
-  //   this.stompClient.send('/app/addStudent', {}, JSON.stringify(student));
-  // }
-  //
-  // deleteStudent(id: bigint): void {
-  //   console.log("ID: " + id);
-  //   this.stompClient.send('/app/deleteStudent', {}, JSON.stringify(id));
-  // }
 
   onCreation(message) {
     console.log("Message Received from Server :: " + message);

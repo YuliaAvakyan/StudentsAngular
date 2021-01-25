@@ -67,7 +67,7 @@ export class StudentsDataSource implements DataSource<Student> {
     this.studentService.deleteStudent(student.id).subscribe()
   }
 
-  //Не знаю куда деть диалог
+  //TODO remove nested calls
   edit(student: Student, dialog: MatDialog): void {
     let dialogRef: any;
     this.studentService.getStudent(student.id.toString())
@@ -101,7 +101,6 @@ export class StudentsDataSource implements DataSource<Student> {
     student.id = this.createdStudent.id;
     const students: Student[] = [...this.studentsSubject.value, student];
     this.studentsSubject.next(students);
-    // finalize(() => this.studentsSubject.next(students));
     return student;
   }
 

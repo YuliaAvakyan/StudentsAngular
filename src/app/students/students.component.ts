@@ -5,9 +5,8 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSort} from '@angular/material/sort';
 import {StudentsDataSource} from '../studentsDataSource';
-import {startWith, switchMap, tap} from 'rxjs/operators';
-import {interval, Observable} from 'rxjs';
-import {WebSocketAPI} from '../ws-api/WebSocketAPI';
+import {tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-students',
@@ -17,7 +16,6 @@ import {WebSocketAPI} from '../ws-api/WebSocketAPI';
 export class StudentsComponent implements OnInit {
   students: Student[] = [];
   displayedColumns = ['name', 'email', 'phone', 'actions'];
-  // dataSource: MatTableDataSource<Student> = new MatTableDataSource();
   dataSource: StudentsDataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -33,9 +31,6 @@ export class StudentsComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = new StudentsDataSource(this.studentService);
     this.dataSource.loadStudents('', 'asc', 0, 5);
-
-    // this.students$ = interval(5000)
-    //   .pipe(switchMap(() => this.studentService.getStudents())); //IT WORKS & [dataSource]="students$ | async"
   }
 
   add(student: Student) {
